@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import CustomerService from "../../../../services/customer.service";
-// Import the useAuth hook
 import { useAuth } from "../../../../Contexts/AuthContext";
 
 function EditCustomerForm() {
@@ -79,7 +78,7 @@ function EditCustomerForm() {
           // Handle successful response
           setSuccess(true);
           setServerError("");
-          // Redirect to the employees page after 2 seconds
+          // Redirect to the customers page after 2 seconds
           // For now, just redirect to the home page
           setTimeout(() => {
             window.location.href = "/admin/customers";

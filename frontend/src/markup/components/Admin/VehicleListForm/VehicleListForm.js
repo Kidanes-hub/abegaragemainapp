@@ -1,35 +1,15 @@
 // Import the necessary components
 import React, { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { format } from "date-fns"; // To properly format the date on the table
-import EmployeeService from "../../../../services/employee.service";
-import { useAuth } from "../../../../Contexts/AuthContext";
-import { FaEdit } from "react-icons/fa";
-import { CgProfile } from "react-icons/cg";
 import vehicleService from "../../../../services/vehicle.service";
 
-// Create the EmployeesList component
+// Create the vehicleList component
 const VehicleListForm = ({ customer_id }) => {
+  const [vehicleList, setVehicleList] = useState([]);
   const [apiError, setApiError] = useState(false);
   const [apiErrorMessage, setApiErrorMessage] = useState(null);
 
   let token = null; // To store the token
-  // if (employee) {
-  //   token = employee.employee_token;
-  // }
-
-  const [vehicleList, setVehicleList] = useState([]); // To store the list
-
-  const ColoredLine = ({ color }) => (
-    <hr
-      style={{
-        color: color,
-        backgroundColor: color,
-        height: 5,
-      }}
-    />
-  );
 
   useEffect(() => {
     // Call the getAllEmployees function
@@ -59,6 +39,17 @@ const VehicleListForm = ({ customer_id }) => {
       });
   }, []);
 
+  // const ColoredLine = ({ color }) => (
+  //   <hr
+  //     style={{
+  //       color: color,
+  //       backgroundColor: color,
+  //       height: 5,
+  //     }}
+  //   />
+  // );
+
+
   return (
     <>
       {apiError ? (
@@ -74,10 +65,8 @@ const VehicleListForm = ({ customer_id }) => {
         <>
           <section className="contact-section">
             <div className="auto-container">
-            <ColoredLine color="red" />
-              <div className="contact-title">
-                {/* <h2>Vehicles</h2> */}
-              </div>
+              {/* <ColoredLine color="red" /> */}
+              <div className="contact-title">{/* <h2>Vehicles</h2> */}</div>
               <Table striped bordered hover>
                 <thead>
                   <tr>
@@ -109,7 +98,7 @@ const VehicleListForm = ({ customer_id }) => {
                 </tbody>
               </Table>
             </div>
-            <ColoredLine color="red" />
+            {/* <ColoredLine color="red" /> */}
           </section>
         </>
       )}

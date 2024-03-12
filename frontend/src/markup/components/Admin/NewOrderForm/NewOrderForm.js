@@ -3,8 +3,7 @@ import React from 'react'
 function NewOrderForm() {
   return (
     <div>
-      <h2>New Order</h2>
-      
+      <h1>New order</h1>
     </div>
   )
 }

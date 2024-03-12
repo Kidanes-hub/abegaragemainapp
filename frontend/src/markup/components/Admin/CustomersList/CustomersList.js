@@ -21,6 +21,7 @@ const CustomersList = () => {
   const [totalPages, setTotalPages] = useState("");
   // State to store the search query
   const [searchQuery, setSearchQuery] = useState("");
+
   // To get the logged in employee token
   const { employee } = useAuth();
   let token = null;
@@ -123,6 +124,8 @@ const CustomersList = () => {
                 </tr>
               </thead>
               <tbody>
+                
+
                 {customers.map((customer) => (
                   <tr key={customer.customer_id}>
                     <td>{customer.customer_id}</td>

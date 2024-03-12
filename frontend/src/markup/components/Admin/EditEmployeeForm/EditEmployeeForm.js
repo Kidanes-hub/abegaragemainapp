@@ -37,7 +37,7 @@ function EditEmployeeForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // handle  validation
+    // Handle  validation
     let valid = true; // Flag
     // First name is required
     if (!employeeData.employee_first_name) {
@@ -114,7 +114,7 @@ function EditEmployeeForm() {
   console.log(singleEmployeeData);
 
   useEffect(() => {
-    // console.log(id, "check id on console");
+    console.log(id, "Empployee id on console");
     const employee = EmployeeService.getEmployeeById(id, loggedInEmployeeToken);
     employee
       .then((response) => response.json())

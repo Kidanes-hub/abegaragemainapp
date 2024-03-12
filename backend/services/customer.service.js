@@ -83,7 +83,7 @@ async function getCustomerById(customerId) {
   const rows = await conn.query(query, [customerId]);
   return rows;
 }
-//Update customer 
+// Update customer 
 async function updateCustomer(customer) { 
    // update active customer status
    const query1 = "UPDATE customer_identifier SET customer_phone_number = ? WHERE customer_id = ?"
@@ -92,7 +92,7 @@ async function updateCustomer(customer) {
   const query2 = "UPDATE customer_info SET customer_first_name = ?, customer_last_name = ?, active_customer = ? WHERE customer_id = ?";
    await conn.query(query2, [customer.customer_first_name, customer.customer_last_name, customer.active_customer, customer.customer_id])
  
-   return  'Updated Successfully';
+   return  'Customer updated successfully';
    // return true
   
 }
@@ -104,6 +104,8 @@ async function searchCustomer(customerSearch){
   return rows;
 }
   
+
+// Expoert  functions as object
 module.exports = {
   checkIfCustomerExists,
   createCustomer,

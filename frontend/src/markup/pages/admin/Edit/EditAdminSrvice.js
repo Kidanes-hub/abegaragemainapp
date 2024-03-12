@@ -1,7 +1,8 @@
 import React from "react";
-import AdminMenu from "../../components/Admin/AdminMenu/AdminMenu";
+import EditAdminServiceForm from "../../../components/Admin/EditServiceForm/EditAdminServiceForm.js";
+import AdminMenu from "../../../components/Admin/AdminMenu/AdminMenu.js";
 
-function AdminServices() {
+function EditAdminSrvice(props) {
   return (
     <div>
       <div className="container-fluid admin-pages">
@@ -10,7 +11,7 @@ function AdminServices() {
             <AdminMenu />
           </div>
           <div className="col-md-9 admin-right-side">
-            <h1>Sevices we provide</h1>
+            <EditAdminServiceForm />
           </div>
         </div>
       </div>
@@ -18,4 +19,4 @@ function AdminServices() {
   );
 }
 
-export default AdminServices;
+export default EditAdminSrvice;

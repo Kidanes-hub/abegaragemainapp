@@ -29,13 +29,11 @@ function EditEmployeeProfileForm() {
         <div className="history-block">
           <div className="years">Details</div>
           <div className="content">
-            <h4>1. Employee information </h4>
-            <h4>2. Job information</h4>
-            <h4>3. Emergency contact details</h4>
+            
            
             <Link to="/employee_profile" className="btn btn-primary">
               {" "}
-              Back to Employee Profile
+              Back to employee profile
             </Link>
           </div>
         </div>
