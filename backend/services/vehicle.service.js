@@ -53,9 +53,53 @@ async function getVehiclesByCustomerId(customerID) {
   return rows;
 }
 
+// Get sungle service by id
+async function getVehicleById(vehicleId) {
+  const query = "SELECT * FROM customer_vehicle_info WHERE vehicle_id = ?";
+  const rows = await conn.query(query, [vehicleId]);
+  return rows;
+}
+
+//  Update vehicle
+async function updateVehicle(vehicle, vehicle_id) {
+  try {
+    console.log(vehicle_id)
+    const query =
+      "UPDATE customer_vehicle_info SET vehicle_year = ?, vehicle_make = ?, vehicle_model = ?, vehicle_type = ?, vehicle_mileage = ?, vehicle_tag = ?, vehicle_serial = ?, vehicle_color = ?, customer_id = ? WHERE vehicle_id = ?";
+    const rows = await conn.query(query, [
+      vehicle.vehicle_year,
+      vehicle.vehicle_make,
+      vehicle.vehicle_model,
+      vehicle.vehicle_type,
+      vehicle.vehicle_mileage,
+      vehicle.vehicle_tag,
+      vehicle.vehicle_serial,
+      vehicle.vehicle_color,
+      vehicle.customer_id,
+      vehicle_id
+     
+    ]);
+    
+
+    if (rows.affectedRows !== 1) {
+      return false;
+    }
+    
+    // Return the updated vehicle object
+    return vehicle;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
+
+
+
 // Export the vehicle service functions
 module.exports = {
   existingVehicle,
   addVehicle,
   getVehiclesByCustomerId,
+  getVehicleById,
+  updateVehicle,
 };

@@ -8,5 +8,11 @@ const vehicleController = require('../controllers/vehicle.controller')
 router.post('/api/vehicle', vehicleController.addVehicle);
 // create a route that handles to get single vehicle by customer_id
 router.get('/api/vehicles/:customer_id', vehicleController.getVehiclesByCustomerId)
-// export the router
+// Get vehicle by vehicle_id
+router.get("/api/vehicle/:id", vehicleController .getVehicleById);
+// Update vehicle by id 
+router.put("/api/vehicle/edit/:vehicle_id", 
+// authMiddleware,
+vehicleController.updateVehicle);
+// export the router 
 module.exports = router;

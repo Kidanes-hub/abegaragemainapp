@@ -121,5 +121,5 @@ const ServiceListTable = () => {
   );
 };
 
-// Export the EmployeesList component
+// Export the ServicesList component
 export default ServiceListTable;

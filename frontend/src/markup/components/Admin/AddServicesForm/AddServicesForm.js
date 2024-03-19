@@ -7,7 +7,7 @@ function AddServicesForm(props) {
   const [serviceName, setServiceName] = useState("");
   const [serviceDecription, setServiceDescription] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [serverError, setServerError] = useState('');
+  const [serverError, setServerError] = useState("");
 
   const navigate = useNavigate();
 
@@ -19,31 +19,27 @@ function AddServicesForm(props) {
       service_name: serviceName,
       service_description: serviceDecription,
     };
-   
-    try {
 
+    try {
       if (!serviceName || !serviceDecription) {
         // alert('Please fill out all fields');
-  
+
         setErrorMessage("Please fill out all fields.");
         setTimeout(() => {
           setErrorMessage("");
         }, 5000);
       } else {
         const service = await serviceService.addService(serviceData);
-        console.log(service)
+        console.log(service);
 
-        if(service.status === 500) {
+        if (service.status === 500) {
           setServerError(service.statusText);
         }
-        
       }
     } catch (error) {
-
       setServerError(error.message);
-
     }
-     console.log(serverError);
+    console.log(serverError);
   };
 
   return (
@@ -82,6 +78,8 @@ function AddServicesForm(props) {
                         placeholder="Service Description"
                       />
                     </div>
+
+                    
                     <div className="form-group col-md-12">
                       <button
                         onClick={handleSubmit}
@@ -89,9 +87,12 @@ function AddServicesForm(props) {
                         type="submit"
                         data-loading-text="Please wait..."
                       >
-                        <span>Add service</span>
+                        <span> Add service</span>
                       </button>
                     </div>
+
+
+
                   </div>
                 </form>
               </div>

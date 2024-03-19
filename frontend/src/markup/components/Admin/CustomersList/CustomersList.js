@@ -3,7 +3,7 @@ import { Table, Button } from "react-bootstrap";
 import { format } from "date-fns";
 import { useAuth } from "../../../../Contexts/AuthContext";
 import customerService from "../../../../services/customer.service";
-import { FaEdit, FaTrash, FaSearch, FaPager } from "react-icons/fa";
+import { FaEdit, FaSearch } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { Link } from "react-router-dom";
 

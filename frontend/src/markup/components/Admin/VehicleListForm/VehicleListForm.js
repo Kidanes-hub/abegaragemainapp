@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
 import vehicleService from "../../../../services/vehicle.service";
+import { FaEdit, FaTrash, FaHandPointer } from "react-icons/fa";
 
 // Create the vehicleList component
 const VehicleListForm = ({ customer_id }) => {
@@ -12,8 +13,8 @@ const VehicleListForm = ({ customer_id }) => {
   let token = null; // To store the token
 
   useEffect(() => {
-    // Call the getAllEmployees function
-    const vehicleList = vehicleService.getSingleVehicle(customer_id, token);
+    // Call the getAllVehicles function
+    const vehicleList = vehicleService.getCustomerById(customer_id, token);
     vehicleList
       .then((res) => {
         if (!res.ok) {
@@ -39,17 +40,6 @@ const VehicleListForm = ({ customer_id }) => {
       });
   }, []);
 
-  // const ColoredLine = ({ color }) => (
-  //   <hr
-  //     style={{
-  //       color: color,
-  //       backgroundColor: color,
-  //       height: 5,
-  //     }}
-  //   />
-  // );
-
-
   return (
     <>
       {apiError ? (
@@ -65,7 +55,6 @@ const VehicleListForm = ({ customer_id }) => {
         <>
           <section className="contact-section">
             <div className="auto-container">
-              {/* <ColoredLine color="red" /> */}
               <div className="contact-title">{/* <h2>Vehicles</h2> */}</div>
               <Table striped bordered hover>
                 <thead>
@@ -79,6 +68,9 @@ const VehicleListForm = ({ customer_id }) => {
                     <th>Vehicle tag</th>
                     <th>Vehicle serial</th>
                     <th>Vehicle color</th>
+                    <th>Edit </th>
+                    <th>Delete</th>
+                    <th>Order</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -93,12 +85,22 @@ const VehicleListForm = ({ customer_id }) => {
                       <td>{vehicle.vehicle_tag}</td>
                       <td>{vehicle.vehicle_serial}</td>
                       <td>{vehicle.vehicle_color}</td>
+                      <td>
+                        <FaEdit />
+                        Edit
+                      </td>
+                      <td>
+                        <FaTrash />
+                        Delete
+                      </td>
+                      <td>
+                        <FaHandPointer /> Order
+                      </td>
                     </tr>
                   ))}
                 </tbody>
               </Table>
             </div>
-            {/* <ColoredLine color="red" /> */}
           </section>
         </>
       )}

@@ -20,15 +20,7 @@ const EmployeesList = () => {
     token = employee.employee_token;
   }
 
-//   const ColoredLine = ({ color }) => (
-//     <hr
-//         style={{
-//             color: color,
-//             backgroundColor: color,
-//             height: 5
-//         }}
-//     />
-// );
+
 
   useEffect(() => {
     // Call the getAllEmployees function
@@ -73,7 +65,7 @@ const EmployeesList = () => {
             <div className="auto-container">
               <div className="contact-title">
                 <h2>Employees</h2> 
-                {/* <ColoredLine color="red" /> */}
+            
               </div>
               <Table striped bordered hover>
                 <thead>
@@ -126,7 +118,7 @@ const EmployeesList = () => {
                 </tbody>
               </Table>
             </div>
-            {/* <ColoredLine color="red" /> */}
+         
           </section>
         </>
       )}

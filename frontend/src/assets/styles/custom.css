@@ -262,19 +262,21 @@ input:disabled {
   cursor: pointer;
 }
 
-/* Add this CSS to your stylesheet */
+Add this CSS to your stylesheet
 .extended-search-button {
   height: 39px;
-  width: 150px; /* Adjust the width according to your design */
+  width: 10px; /* Adjust the width according to your design */
   background-color: #dee2e6;
+  justify-content: center;
 }
 
 
 /* Add this CSS to your stylesheet */
 .extended-placeholder-input {
   height: 40px;
-  width: 750px; /* Adjust the width according to your design */
+  width: 90%; /* Adjust the width according to your design */
   background-color: #dddddd;
+  justify-content: center;
 }
 
 .pagination-container {
@@ -282,4 +284,10 @@ input:disabled {
   justify-content: center;
   align-items: center;
   /* width: 1500px; */
+}
+
+.fade-line {
+  height: 1px;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), #000 50%, rgba(255, 255, 255, 0));
+  margin-top: 20px; /* Adjust the margin as needed */
 }

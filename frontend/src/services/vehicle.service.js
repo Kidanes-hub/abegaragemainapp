@@ -31,7 +31,7 @@ const addVehicle = async (customerData, customer_id, loggedInEmployeeToken) => {
   return response;
 };
 
-//Fetch single customer data
+//Fetch single customer's vehicle data
 const getCustomerById = async (customer_id, loggedInEmployeeToken) => {
   const requestOptions = {
     method: "GET",
@@ -41,7 +41,7 @@ const getCustomerById = async (customer_id, loggedInEmployeeToken) => {
     },
   };
   const response = await fetch(
-    `${api_url}/api/customer/${customer_id}`,
+    `${api_url}/api/vehicles/${customer_id}`,
 
     requestOptions
   );
@@ -49,7 +49,7 @@ const getCustomerById = async (customer_id, loggedInEmployeeToken) => {
   return response;
 };
 
-
+// Fetch single vehicle data
 const getSingleVehicle = async (customer_id, loggedInEmployeeToken) => {
   const requestOptions = {
     method: "GET",
@@ -59,7 +59,7 @@ const getSingleVehicle = async (customer_id, loggedInEmployeeToken) => {
     },
   };
   const response = await fetch(
-    `${api_url}/api/vehicles/${customer_id}`,
+    `${api_url}/api/vehicle/${customer_id}`,
 
     requestOptions
   );

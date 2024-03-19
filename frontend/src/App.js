@@ -48,6 +48,10 @@ import EditEmployee from "./markup/pages/admin/Edit/EditEmployee/EditEmployee";
 
 import EditEmployeeProfile from "./markup/pages/admin/Edit/EditEmployeeProfile/EditEmployeeProfile";
 import EditAdminSrvice from "./markup/pages/admin/Edit/EditAdminSrvice";
+import NewCustomerOrder from "./markup/pages/admin/NewCustomerOrder";
+import SelectServiceForOrder from "./markup/pages/admin/SelectNewServiceForOrder";
+import AddVehicleH from "./markup/components/Admin/AddVehicleForm/AddVehicleH";
+import SelectServiceForOrderForm from "./markup/components/Admin/SelectNewServiceForOrderForm/SelectNewServiceForOrderForm";
 
 function App() {
   return (
@@ -75,16 +79,20 @@ function App() {
           path="admin/edit-employee/:employee_id"
           element={<EditEmployee />}
         />
+        <Route path="admin/henok" element={<AddVehicleH />} />
 
+        {/* Service Routes */}
         <Route
           path="/admin/employee-profile/:employee_id"
           element={<EditEmployeeProfile />}
         />
 
         <Route
-          path="/admin/edit-service/:id"
-          element={<EditAdminSrvice />}
+          path="admin/order/vehicle/customer/:id/order/:vehicle_id"
+          element={<SelectServiceForOrder />}
         />
+
+        <Route path="/admin/edit-service/:id" element={<EditAdminSrvice />} />
 
         {/* // Add the Orders Routes  */}
         <Route
@@ -103,6 +111,12 @@ function App() {
             </PrivateAuthRoute>
           }
         />
+        <Route
+          path="/admin/order/vehicle/customer/:id"
+          element={<NewCustomerOrder />}
+        />
+
+        {/* <Route path="admin/order/vehicle/customer/:id/admin/select/new-order/:id" element={< SelectServiceForOrderForm />} /> */}
 
         {/* Add the Customers Routes  */}
 

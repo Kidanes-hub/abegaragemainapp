@@ -24,6 +24,7 @@ async function createEmployee(req, res, next) {
       } else {
         res.status(200).json({
           status: "true",
+          data: employee
         });
       }
     } catch (error) {
@@ -88,10 +89,24 @@ async function updateEmployee(req, res, next) {
   }
 }
 
+// Delete employee by id
+async function deleteEmployeeById(req, res, next) {
+  try {
+    const employeeId = req.params.id;
+    const result = await  employeeService.deleteEmployeeById(employeeId);
+
+    return res.status(200).json(result);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+}
+
+
 // Export the createEmployee controller 
 module.exports = {
   createEmployee,
   getAllEmployees,
   getEmployeeById,
-  updateEmployee
+  updateEmployee,
+  deleteEmployeeById
 };

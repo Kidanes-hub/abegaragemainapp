@@ -12,7 +12,7 @@ router.post('/api/customer',
  customerController.createCustomer);
 // Create  a route to handle the get all customers request on get
 router.get('/api/customers',
-// [authMiddleware.verifyToken, authMiddleware.isAdmin], 
+// [authMiddleware.verifyToken, authMiddleware.isAdmin],  
 customerController.getAllCustomers);
 // create a route to handle single customer
 router.get("/api/customer/:id", customerController.getCustomerById);
@@ -22,6 +22,7 @@ router.put('/api/customer/edit/:customer_id',
 customerController.updateCustomer);
 // search a route  for searching customer by name or email
 router.get('/api/customer/search/:search', customerController.searchCustomer);
+
 // Export the router
 module.exports = router;
 

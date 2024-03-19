@@ -47,7 +47,7 @@ const updateCustomer = async (formData, id, loggedInEmployeeToken) => {
   return response;
 };
 
-//Fetch single customer data
+// Fetch single customer data
 async function getCustomerById(id, loggedInEmployeeToken) {
   const requestOptions = {
     method: "GET",
@@ -59,9 +59,9 @@ async function getCustomerById(id, loggedInEmployeeToken) {
   const response = await fetch(`${api_url}/api/customer/${id}`, requestOptions);
   console.log(response);
   return response;
-}
+} 
 
-// write a function to search by first name, last name, email and ID
+// Write a function to search by first name, last name, email and ID
 async function searchCustomer(token, searchQuery) {
   const requestOptions = {
     method: "GET",

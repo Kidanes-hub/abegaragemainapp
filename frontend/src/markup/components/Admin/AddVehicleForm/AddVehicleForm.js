@@ -245,7 +245,7 @@ function AddVehicleForm() {
                       <form onSubmit={handleSubmit}>
                         <div className="row clearfix">
                           <VehicleListForm customer_id={customer_id} />
-                 <h4>Add a new vehicle</h4>
+                 <h4>Add a new vehicle -</h4>
 
                           <div className="form-group col-md-12">
                             <input

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import { BsX } from "react-icons/bs"; // Import X icon from react-icons/bs
 
-const AddVehicleForm = () => {
+const AddVehicleH = () => {
     const [showForm, setShowForm] = useState(true);
 
     const handleSubmit = (e) => {
@@ -130,4 +130,4 @@ const AddVehicleForm = () => {
     );
 };
 
-export default AddVehicleForm;
+export default AddVehicleH;

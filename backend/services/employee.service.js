@@ -104,6 +104,21 @@ async function updateEmployee(employee) {
   return "Updated employee info";
 }
 
+// Delete service by id
+async function deleteEmployeeById(employeeId) {
+  try {
+    const query = "DELETE FROM employee_info WHERE employee_id = ?";
+    const result = await conn.query(query, [employeeId]);
+    if (result.affectedRows === 0) {
+      return { message: "No employee found with the provided ID." };
+    }
+    return { message: "employee deleted successfully." };
+  } catch (error) {
+    console.error("Error deleting employee:", error);
+    throw error;
+  }
+}
+
 // Export the functions for use in the controller
 module.exports = {
   checkIfEmployeeExists,
@@ -112,4 +127,5 @@ module.exports = {
   getAllEmployees,
   getEmployeeById,
   updateEmployee,
+  deleteEmployeeById
 };
