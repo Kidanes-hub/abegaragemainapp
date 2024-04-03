@@ -13,7 +13,7 @@ function Employees() {
 
   if (isLogged) {
 
-    console.log("Kebede");
+    console.log("isLogged");
 
     if (isAdmin) {
       return (

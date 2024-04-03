@@ -51,7 +51,6 @@ import EditAdminSrvice from "./markup/pages/admin/Edit/EditAdminSrvice";
 import NewCustomerOrder from "./markup/pages/admin/NewCustomerOrder";
 import SelectServiceForOrder from "./markup/pages/admin/SelectNewServiceForOrder";
 import AddVehicleH from "./markup/components/Admin/AddVehicleForm/AddVehicleH";
-import SelectServiceForOrderForm from "./markup/components/Admin/SelectNewServiceForOrderForm/SelectNewServiceForOrderForm";
 
 function App() {
   return (
@@ -115,8 +114,6 @@ function App() {
           path="/admin/order/vehicle/customer/:id"
           element={<NewCustomerOrder />}
         />
-
-        {/* <Route path="admin/order/vehicle/customer/:id/admin/select/new-order/:id" element={< SelectServiceForOrderForm />} /> */}
 
         {/* Add the Customers Routes  */}
 

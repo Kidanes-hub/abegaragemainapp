@@ -9,12 +9,12 @@ async function createOrder(req, res, next) {
     const orderData = req.body;
     console.log(orderData)
     
-    // Validate required fields
-    if (!orderData.employee_id || !orderData.customer_id || !orderData.vehicle_id || !orderData.order_description || !orderData.estimated_completion_date) {
-      return res.status(400).json({
-        error: "Missing required fields. Please provide employee_id, customer_id, vehicle_id, order_description, and estimated_completion_date."
-      });
-    }
+    // // Validate required fields
+    // if (!orderData.employee_id || !orderData.customer_id || !orderData.vehicle_id || !orderData.order_description || !orderData.estimated_completion_date) {
+    //   return res.status(400).json({
+    //     error: "Missing required fields. Please provide employee_id, customer_id, vehicle_id, order_description, and estimated_completion_date."
+    //   });
+    // }
 
     // Check if customer exists
     const customerExists = await orderService.checkIfCustomerExists(orderData.customer_id);
@@ -84,37 +84,11 @@ async function getOrderById(req, res, next) {
   }
 }
 
-
-// Update order by order-id
-// async function updateOrder(req, res, next) {
-//   try {
-//     const orderData = req.body;
-//     // console.log(req.body)
-//     const orderId = req.params.order_id; // Corrected parameter name
-//     // console.log(req.params.order_id)
-//     const order = await orderService.updateOrder(orderId, orderData); // Corrected function call
-
-//     if (!order) {
-//       return res
-//         .status(404)
-//         .json({ message: "Order not found or failed to update" });
-//     } else {
-//       return res
-//         .status(200)
-//         .json({ message: "Order updated successfully!" });
-//     }
-//   } catch (error) {
-//     console.log(error)
-//     return res
-//       .status(500)
-//       .json({ message: "Internal server error: " + error.message });
-      
-//   }
- 
-// }
+// Update an Order
 async function updateOrder(req, res, next) {
   try {
     const orderData = req.body;
+    console.log(orderData)
     const orderId = req.params.order_id; // Corrected parameter name
     const order = await orderService.updateOrder(orderId, orderData); // Corrected function call
 

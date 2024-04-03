@@ -60,7 +60,7 @@ const getSingleVehicle = async (customer_id, loggedInEmployeeToken) => {
   };
   const response = await fetch(
     `${api_url}/api/vehicle/${customer_id}`,
-
+ 
     requestOptions
   );
   console.log(response);

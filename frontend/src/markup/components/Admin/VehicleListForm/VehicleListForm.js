@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
 import vehicleService from "../../../../services/vehicle.service";
 import { FaEdit, FaTrash, FaHandPointer } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 // Create the vehicleList component
 const VehicleListForm = ({ customer_id }) => {
@@ -94,7 +95,9 @@ const VehicleListForm = ({ customer_id }) => {
                         Delete
                       </td>
                       <td>
-                        <FaHandPointer /> Order
+                     <Link 
+                    //  to={`/admin/order/vehicle/customer/${customer_id}2/order/${order_id}`}
+                     >   <FaHandPointer /> Order  </Link> 
                       </td>
                     </tr>
                   ))}

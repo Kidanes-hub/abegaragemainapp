@@ -4,30 +4,34 @@ import ServiceService from "../../../../services/service.service";
 import CustomerService from "../../../../services/customer.service";
 import orderService from "../../../../services/order.service";
 import { useAuth } from "../../../../Contexts/AuthContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaEdit } from "react-icons/fa";
 import vehicleService from "../../../../services/vehicle.service";
 
 const SelectServiceForOrderForm = () => {
-  const [orderData, setOrderData] = useState({
-    service_description: "",
-    price: "",
-    customer_first_name: "",
-    customer_last_name: "",
-    customer_phone_number: "",
-  });
+ 
+
+  const navigate = useNavigate();
 
   const [customer, setCustomer] = useState([]);
   const [vehicle, setVehicle] = useState([]);
 
+  const customer_id = window.location.pathname.split("/")[5];
   const vehicle_id = window.location.pathname.split("/")[7];
 
-  const customer_id = window.location.pathname.split("/")[5];
 
-  // States to store form data
-  const [service_description, setServiceDescription] = useState("");
+  const [orderData, setOrderData] = useState({
+    additional_request: "",
+    order_total_price: "",
+    order_description: "Oil change",
+    active_order: 1,
+    order_completed: 0,
+    order_status: 0,
+    additional_requests_completed: 0,
+  });
+
   const [price, setPrice] = useState("");
-
+  const [serviceDescription, setServiceDescription] = useState("");
   const [services, setServices] = useState([]);
   const [apiError, setApiError] = useState(false);
   const [apiErrorMessage, setApiErrorMessage] = useState(null);
@@ -40,77 +44,107 @@ const SelectServiceForOrderForm = () => {
   // Destructure the auth hook and get the token
   const { employee } = useAuth();
   let token = null; // To store the token
+  let employee_id = null;
+  console.log(employee);
+
+  // console.log(employee_id);
+
   if (employee) {
+    employee_id = employee.employee_id;
     token = employee.employee_token;
   }
 
   const handleChange = (e) => {
-    setOrderData({ ...orderData, [e.target.name]: e.target.value });
+    setOrderData({
+      ...orderData,
+      [e.target.name]: e.target.value,
+    });
   };
 
   // Function to handle checkbox change
-  const handleCheckboxChange = (index) => {
-    const updatedServices = [...services];
-    updatedServices[index].checked = !updatedServices[index].checked;
-    setServices(updatedServices);
+  const [selectedServices, setSelectedServices] = useState([]);
+
+  const toggleServiceSelection = (serviceId) => {
+    setSelectedServices((prevSelectedServices) => {
+      const isSelected = prevSelectedServices.some(
+        (service) => service.service_id === serviceId
+      );
+      if (isSelected) {
+        return prevSelectedServices.filter(
+          (service) => service.service_id !== serviceId
+        );
+      } else {
+        return [
+          ...prevSelectedServices,
+          { service_id: serviceId, service_completed: 0 },
+        ];
+      }
+    });
   };
 
-  // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Implement your form submission logic here
     let valid = true;
+    if (!orderData.additional_request) {
+      setServiceDescription("please enter service description");
+      valid = false;
+    }
+    if (!orderData.order_total_price) {
+      setPrice("please enter price");
+      valid = false;
+    }
+    if (!valid) {
+      return;
+    }
+    try {
+      const res = await orderService.createOrder(
+        employee_id,
+        customer_id,
+        vehicle_id,
+        token,
+        { ...orderData, order_services: selectedServices }
+      );
+      console.log(res)
 
-    // Form validation...
-    if (valid) {
-      try {
-        const orderData = {
-          service_description,
-          price,
-        };
+      // toast.success(res.message, {
+      //   position: "top-center",
+      //   autoClose: 5000,
+      //   hideProgressBar: false,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      //   draggable: true,
+      //   progress: undefined,
+      //   theme: "light",
+      //   transition: Bounce,
+      // });
+      // console.log(res);
+      navigate("/admin/orders");
 
-        const newOrder = await orderService.createOrder(
-          orderData,
-          loggedInEmployeeToken
-        );
-        const data = await newOrder.json();
-
-        if (data.error) {
-          setServerError(data.error);
-        } else {
-          setSuccess(true);
-          setServerError("");
-          setTimeout(() => {
-            window.location.href = "/";
-          }, 2000);
-        }
-      } catch (error) {
-        const resMessage =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-        setServerError(resMessage);
-      }
+      // console.log(res);
+    } catch (error) {
+      console.log(error);
+      // toast.error(error.response.message,
+      //   {
+      //   position: "top-center",
+      //   autoClose: 5000,
+      //   hideProgressBar: false,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      //   draggable: true,
+      //   progress: undefined,
+      //   theme: "light",
+      //   transition: Bounce,
+      // });
     }
   };
 
-  useEffect(() => {
-    const vehicle = vehicleService.getSingleVehicle(vehicle_id);
-    vehicle
-      .then((response) => response.json())
-      .then((data) => {
-        setVehicle(data.data[0]);
-        console.log(data.data[0]);
-      })
-      .catch((error) => console.log(error));
-  }, []);
+  
 
+ 
   useEffect(() => {
     if (customer_id) {
       // Ensure customer_id is not empty
-      const customer = CustomerService.getCustomerById(
+      const customer = CustomerService. getCustomerById(
         customer_id,
         loggedInEmployeeToken
       );
@@ -118,38 +152,42 @@ const SelectServiceForOrderForm = () => {
         .then((response) => response.json())
         .then((data) => {
           setCustomer(data.data[0]);
-          console.log(data);
+          // console.log(data);
         });
     }
-  }, [customer_id]);
+  }, []);
+
+  useEffect(() => {
+    const vehicle = vehicleService.getSingleVehicle(vehicle_id);
+    vehicle
+      .then((response) => response.json())
+      .then((data) => {
+        setVehicle(data.data[0]);
+        // console.log(data.data[0]);
+      })
+      .catch((error) => console.log(error));
+  }, []);
 
   useEffect(() => {
     // Call the getAllServices function
     const allServices = ServiceService.getAllServices(token);
     allServices
       .then((res) => {
-        if (!res.ok) {
-          setApiError(true);
-          if (res.status === 401) {
-            setApiErrorMessage("Please login again");
-          } else if (res.status === 403) {
-            setApiErrorMessage("You are not authorized to view this page");
-          } else {
-            setApiErrorMessage("Please try again later");
-          }
-        }
+        // if (!res.ok) {
+        //   setApiError(true);
+        //   if (res.status === 401) {
+        //     setApiErrorMessage("Please login again");
+        //   } else if (res.status === 403) {
+        //     setApiErrorMessage("You are not authorized to view this page");
+        //   } else {
+        //     setApiErrorMessage("Please try again later");
+        //   }
+        // }
         return res.json();
       })
       .then((data) => {
-        if (data.data.length !== 0) {
-          console.log(data.data);
-          // Add 'checked' property to each service
-          const servicesWithChecked = data.data.map((service) => ({
-            ...service,
-            checked: false,
-          }));
-          setServices(servicesWithChecked);
-        }
+        setServices(data.data);
+        console.log(data);
       })
       .catch((err) => {
         console.log(err);
@@ -215,7 +253,7 @@ const SelectServiceForOrderForm = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {services.map((common_service, index) => (
+                  {services?.map((common_service, index) => (
                     <tr key={common_service.service_id}>
                       <td>{common_service.service_name}</td>
                       <td>{common_service.service_description}</td>
@@ -226,8 +264,15 @@ const SelectServiceForOrderForm = () => {
                       <td>
                         <input
                           type="checkbox"
-                          checked={common_service.checked || false}
-                          onChange={() => handleCheckboxChange(index)}
+                          name="service_id"
+                          onChange={() =>
+                            toggleServiceSelection(common_service.service_id)
+                          }
+                          checked={selectedServices.some(
+                            (service) =>
+                              service.service_id === common_service.service_id
+                          )}
+                          className=" h-5 w-5"
                         />
                       </td>
                     </tr>
@@ -245,40 +290,38 @@ const SelectServiceForOrderForm = () => {
                   <div className="form-column col-lg-7">
                     <div className="inner-column">
                       <div className="contact-form">
-                        <form
-                        // onSubmit={handleSubmit}
-                        >
-                          <div className="row clearfix">
-                            <div className="form-group col-md-12">
-                              <textarea
-                                // onChange={(e) =>
-                                //   setServiceDescription(e.target.value)
-                                // }
-                                // value={service_description}
-                                type="text"
-                                name=" service_description"
-                                placeholder="Service description"
-                              />
-                              <br />
-                              <input
-                                type="text"
-                                name="price"
-                                // onChange={(e) => setPrice(e.target.value)}
-                                // value={price}
-                                placeholder="price"
-                                required
-                              />
-                            </div>
-
-                            <div className="form-group col-md-12">
-                              <button
-                                className="theme-btn btn-style-one"
-                                type="submit"
-                                data-loading-text="Please wait..."
-                              >
-                                <span>Submit Order</span>
-                              </button>
-                            </div>
+                        <form onSubmit={handleSubmit}>
+                          {/* Service description input */}
+                          <div className="form-group col-md-12">
+                            <textarea
+                              onChange={handleChange}
+                              value={orderData.additional_request}
+                              type="text"
+                              name="additional_request"
+                              placeholder="Service description"
+                              required
+                            />
+                          </div>
+                          {/* Price input */}
+                          <div className="form-group col-md-12">
+                            <input
+                              type="text"
+                              name="order_total_price"
+                              onChange={handleChange}
+                              value={orderData.order_total_price}
+                              placeholder="Price"
+                              required
+                            />
+                          </div>
+                          {/* Submit button */}
+                          <div className="form-group col-md-12">
+                            <button
+                              className="theme-btn btn-style-one"
+                              type="submit"
+                              disabled={success} // Disable button if submission is successful
+                            >
+                              <span>Submit Order</span>
+                            </button>
                           </div>
                         </form>
                       </div>

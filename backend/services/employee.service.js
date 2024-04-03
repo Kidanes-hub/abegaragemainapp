@@ -2,6 +2,7 @@
 const conn = require("../config/db.config");
 // Import the bcrypt module
 const bcrypt = require("bcrypt");
+
 // Write a function to check if employee exists in the database
 async function checkIfEmployeeExists(email) {
   const query = "SELECT * FROM employee WHERE employee_email = ? ";
@@ -21,6 +22,7 @@ async function createEmployee(employee) {
     const salt = await bcrypt.genSalt(10);
     // Hash the password
     const hashedPassword = await bcrypt.hash(employee.employee_password, salt);
+    console.log(employee.employee_password);
     // Insert the email in to the employee table
     const query1 =
       "INSERT INTO employee (employee_email, active_employee) VALUES (?, ?)";
@@ -127,5 +129,5 @@ module.exports = {
   getAllEmployees,
   getEmployeeById,
   updateEmployee,
-  deleteEmployeeById
+  deleteEmployeeById,
 };

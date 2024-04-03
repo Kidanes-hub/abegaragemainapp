@@ -22,7 +22,7 @@ function AddVehicleForm() {
   });
 
   const customer_id = window.location.pathname.split("/")[3];
-  // const [ customerData, setCustomerData ] = useState([])
+  
 
   const navigate = useNavigate();
 
@@ -42,6 +42,8 @@ function AddVehicleForm() {
   const [success, setSuccess] = useState(false);
   const [serverError, setServerError] = useState("");
 
+  // Create all the states we need to store employee's data
+  // Create a variable to hold the user's token
   let loggedInEmployeeToken = "";
   const { employee } = useAuth();
   if (employee && employee.employee_token) {
@@ -158,8 +160,7 @@ function AddVehicleForm() {
           // Handle successful response
           setSuccess(true);
           setServerError("");
-          // Redirect to the employees page after 2 seconds
-          // For now, just redirect to the home page
+          // Redirect to the customers page after 2 seconds        
           setTimeout(() => {
             window.location.href = "/admin/customers";
           }, 2000);

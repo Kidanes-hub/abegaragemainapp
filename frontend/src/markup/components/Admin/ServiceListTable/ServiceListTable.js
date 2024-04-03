@@ -1,7 +1,6 @@
 // Import the necessary components
 import React, { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
-import { format } from "date-fns";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import serviceService from "../../../../services/service.service";
 import { useAuth } from "../../../../Contexts/AuthContext";
@@ -22,15 +21,15 @@ const ServiceListTable = () => {
   }
 
   const handleDelete = async (id) => {
-    try { 
-     const  response = await serviceService.deleteService(id, token);
-    if(response.status === 200){
-      window.location.reload()
-    }else{
-      throw new Error("Server error");
-      }  
+    try {
+      const response = await serviceService.deleteService(id, token);
+      if (response.status === 200) {
+        window.location.reload();
+      } else {
+        throw new Error("Server error");
+      }
     } catch (error) {
-    console.log(`Error: ${error}`)
+      console.log(`Error: ${error}`);
     }
   };
 
@@ -103,12 +102,19 @@ const ServiceListTable = () => {
                     <tr key={common_services.service_id}>
                       <td>{common_services.service_name} </td>
                       <td>{common_services.service_description}</td>
-                    <Link to={`/admin/edit-service/${common_services.service_id}`} >
+                      <Link
+                        to={`/admin/edit-service/${common_services.service_id}`}
+                      >
                         {" "}
                         <FaEdit />{" "}
                       </Link>{" "}
-                   <button onClick={() => handleDelete(common_services.service_id)}>   ---
-                      <FaTrash /></button>
+                      <button
+                        onClick={() => handleDelete(common_services.service_id)}
+                      >
+                        {" "}
+                        ---
+                        <FaTrash />
+                      </button>
                     </tr>
                   ))}
                 </tbody>

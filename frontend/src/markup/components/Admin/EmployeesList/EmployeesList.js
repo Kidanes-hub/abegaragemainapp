@@ -14,13 +14,12 @@ const EmployeesList = () => {
   const [employees, setEmployees] = useState([]);
   const [apiError, setApiError] = useState(false);
   const [apiErrorMessage, setApiErrorMessage] = useState(null);
+
   const { employee } = useAuth();
   let token = null; // To store the token
   if (employee) {
     token = employee.employee_token;
   }
-
-
 
   useEffect(() => {
     // Call the getAllEmployees function
@@ -64,8 +63,7 @@ const EmployeesList = () => {
           <section className="contact-section">
             <div className="auto-container">
               <div className="contact-title">
-                <h2>Employees</h2> 
-            
+                <h2>Employees</h2>
               </div>
               <Table striped bordered hover>
                 <thead>
@@ -78,7 +76,6 @@ const EmployeesList = () => {
                     <th>Added Date</th>
                     <th>Role</th>
                     <th> Edit/Profile </th>
-                    
                   </tr>
                 </thead>
                 <tbody>
@@ -118,7 +115,6 @@ const EmployeesList = () => {
                 </tbody>
               </Table>
             </div>
-         
           </section>
         </>
       )}

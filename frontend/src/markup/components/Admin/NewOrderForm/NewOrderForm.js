@@ -5,6 +5,9 @@ import { useAuth } from "../../../../Contexts/AuthContext";
 import customerService from "../../../../services/customer.service";
 import { FaSearch, FaHandPointer } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import SearchIcon from '@mui/icons-material/Search';
+
+
 
 const NewOrderForm = () => {
   const [customers, setCustomers] = useState([]);
@@ -69,17 +72,14 @@ const NewOrderForm = () => {
               <div className="search-bar">
                 <input
                   type="text"
+                  
                   value={searchQuery}
                   onChange={handleSearch}
                   placeholder="Search for a customer using first name, last name, email address or phonenumber"
-                  className="extended-placeholder-input"
-                />
-                <Button
-                  className="theme-btn- btn-style-one extended-search-button "
+                  className="searchInput"
                   onClick={handleSearch}
-                >
-                  <FaSearch />
-                </Button>
+                />
+                <SearchIcon className="srarchIcon" />
               </div>
             </div>
             {searchQuery && (
